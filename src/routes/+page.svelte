@@ -3,7 +3,7 @@
     let after = '';
     let isVtoH = 0;//0なら横縦，1なら縦横
     let is_inJap = true;//0なら日本語あり,1ならなし
-    let inBrank = 1;//1なら行間の空白あり，0ならなし
+    let inBrank = true;//1なら行間の空白あり，0ならなし
     let changeAstarisk = 0;//0ならしない，1なら＊に
     /**
      * @param {number} number1
@@ -94,12 +94,8 @@
     <label>
         <input type="checkbox" bind:checked={is_inJap}/>日本語あり
     </label>
-    <br>
     <label>
-        <input type="radio" bind:group={inBrank} value={1} />行間で改行
-    </label>
-    <label>
-        <input type="radio" bind:group={inBrank} value={0} />改行しない
+        <input type="checkbox" bind:checked={inBrank}/>改行する
     </label>
 
     <div class = "container">
