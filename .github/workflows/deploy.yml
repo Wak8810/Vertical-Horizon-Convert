@@ -37,7 +37,6 @@ jobs:
 
   deploy:
     needs: build
-
     permissions:
       pages: write
       id-token: write
@@ -54,3 +53,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          branch: gh-pages   # GitHub Pagesにデプロイするブランチを指定
+          folder: build      # ビルド出力先フォルダを指定
