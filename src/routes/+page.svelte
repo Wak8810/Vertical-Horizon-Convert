@@ -4,7 +4,6 @@
     let isVtoH = 0;//0なら横縦，1なら縦横
     let is_inJap = true;//0なら日本語あり,1ならなし
     let inBrank = true;//1なら行間の空白あり，0ならなし
-    let changeAstarisk = 0;//0ならしない，1なら＊に
     /**
      * @param {number} number1
      * @param {number} number2
