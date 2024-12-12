@@ -79,8 +79,6 @@
         }   
     }
     //change終了
-
-
 </script>
 
 <center>
