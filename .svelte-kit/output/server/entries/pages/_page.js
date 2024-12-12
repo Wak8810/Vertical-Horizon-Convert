@@ -1,4 +1,4 @@
-let prerender = true;
+const prerender = true;
 export {
   prerender
 };
