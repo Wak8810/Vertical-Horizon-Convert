@@ -1,9 +1,9 @@
 <script>
     let before = '丸亀製麺は 一軒一軒が 製麺場\n麺職人達が 日々腕と 感性を 研ぎ澄ます\n丸亀製麺は 全ての店で 池の水から 作る\nそう しなければ こんなにも すぐに 作れない\nうどんで あなたを 驚かせたい丸亀製麺では 全ての店で ハイになる 違法な粉から 作る\nもう これなしでは 生きられない 体に なってしまう\n丸亀製麺は 口から ビームを 放つことが できる\nそれだけではない\n丸亀製麺は しばしば 黒魔術を 使う\n丸亀製麺は 裏社会と 繋がっている\n年に一度 開催される 闇オークションに 出品し私服を 肥やしている\n丸亀製麺は 時を 止めることが できる\n特殊な ストップウォッチを 持っている\n誰も 止められない\nうどんで あなたを 驚かせたい\n丸亀製麺に 労働基準法は 適用されない\n良いと言うまで 決して 休んではならない\n不眠不休で 働かされる';
     let after = '';
-    let isVtoH = 0;//0なら横縦，1なら縦横
     let is_inJap = true;//0なら日本語あり,1ならなし
     let inBrank = true;//1なら行間の空白あり，0ならなし
+    
     /**
      * @param {number} number1
      * @param {number} number2
@@ -11,6 +11,33 @@
      */
     function max(number1,number2){
         return number1 < number2 ? number2 : number1;
+    }
+
+    //changeで文字置き換えが必要な際の関数
+    /**
+    *@param {string} bef_c
+    *@param {boolean} inJ 
+    */
+    //if (bef_c === '') return '';
+    function changeMap(bef_c,inJ){  //思いついたら増やしていく(：；＝ー/など)
+        //ひらがなカタカナ漢字ならすぐreturn
+        if (/[\u3040-\u309F\u30A0-\u30FF\u4e00-\u9faf]/.test(bef_c)) return bef_c;
+        if (inJ && bef_c === ' ') return '　';
+        if (!inJ && bef_c === '　') return ' ';
+        if (['ー', '～'].includes(bef_c)) return '｜';
+        if (bef_c === '「') return '﹁';
+        if (bef_c === '」') return '﹂';
+        if (bef_c === '『') return '﹃';
+        if (bef_c === '』') return '﹄';
+        if (bef_c === '（') return '︵';
+        if (bef_c === '）') return '︶';
+        if (bef_c === '(') return '︵';
+        if (bef_c === ')') return '︶';
+        if (bef_c === '[') return '﹇';
+        if (bef_c === ']') return '﹈';
+        if (bef_c === '［') return '﹇';
+        if (bef_c === '］') return '﹈';
+        return bef_c; //変換が不要な場合はそのまま返す
     }
     //change開始
     function change(){
@@ -51,24 +78,14 @@
             for(let j=0;j<max_height;j++){
                 if(before[index] === '\n' || index >= before.length) continue;
                 else{
-                    if(is_inJap && before[index] == ' '){
-                        aft[j][i] = '　';
-                        index++;
-                    }else if(!is_inJap && before[index] == '　'){
-                        aft[j][i] = ' ';
-                        index++;
-                    }else if(before[index] == 'ー'){
-                        aft[j][i] = '｜';
-                        index++;
-                    }else{
-                        aft[j][i] = before[index];
-                        index++;
-                    }
+                    aft[j][i] = changeMap(before[index],is_inJap);
+                    index++;
                 }
             }
             index++;
         }
-
+        
+        
         //文字列に代入
         for(let i=0;i<max_height;i++){
             for(let j=0;j<max_width;j++){
@@ -82,13 +99,6 @@
 
 <center>
     <h1>横書き縦書き変換</h1>
-
-    <label>
-        <input type="radio" bind:group={isVtoH} value={0} />横から縦
-    </label>
-    <label>
-        <input type="radio" bind:group={isVtoH} value={1} />縦から横
-    </label>
     <br>
     <label>
         <input type="checkbox" bind:checked={is_inJap}/>日本語あり
